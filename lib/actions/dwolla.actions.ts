@@ -55,7 +55,6 @@ export const createDwollaCustomer = async (
   newCustomer: NewDwollaCustomerParams
 ) => {
   try {
-    console.log(newCustomer)
     return await dwollaClient
       .post("customers", newCustomer)
       .then((res) => res.headers.get("location"));
@@ -71,19 +70,20 @@ export const createTransfer = async ({
 }: TransferParams) => {
   try {
     const requestBody = {
-      _links: {
-        source: {
-          href: sourceFundingSourceUrl,
+      "_links": {
+        "source": {
+          "href": sourceFundingSourceUrl,
         },
-        destination: {
-          href: destinationFundingSourceUrl,
+        "destination": {
+          "href": destinationFundingSourceUrl,
         },
       },
-      amount: {
-        currency: "USD",
-        value: amount,
+      "amount": {
+        "currency": "USD",
+        "value": amount,
       },
     };
+    console.log(requestBody)
     return await dwollaClient
       .post("transfers", requestBody)
       .then((res) => res.headers.get("location"));
